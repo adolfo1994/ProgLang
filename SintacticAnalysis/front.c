@@ -98,22 +98,14 @@ void addChar() {
 void getChar() {
 	int prevCharClass;
 	if ((nextChar = getc(in_fp)) != EOF) {
-		prevCharClass = charClass;
 		if (isalpha(nextChar))
 			charClass = LETTER;
-		else{
-			charClass = INVALID;
-		}	
-		if (isdigit(nextChar))
+		else if (isdigit(nextChar))
 			charClass = DIGIT;
 		else if(nextChar == '.')
 			charClass = FLOAT_SEPARATOR;
 		else 
 			charClass = UNKNOWN;
-
-		if(charClass == LETTER && prevCharClass){
-			charClass = DIGIT;
-		}
 	}
  	else
  		charClass = EOF;
@@ -155,10 +147,6 @@ int lex() {
 /* Parentheses and operators */
 		case UNKNOWN:
  			lookup(nextChar);
- 			getChar();
- 			break;
- 		case INVALID:
- 			addChar();
  			getChar();
  			break;
 /* EOF */
