@@ -185,6 +185,8 @@ int lex() {
     switch (charClass) {
         /* Parse identifiers */
         case LETTER:
+            printf("LETTER: %i\n", charClass);
+
             addChar();
             getChar();
             while (charClass == LETTER || charClass == DIGIT) {
@@ -195,6 +197,7 @@ int lex() {
             break;
         /* Parse integer literals */
         case DIGIT:
+            printf("DIGIT:%i\n", charClass);
             addChar();
             getChar();
             nextToken = INT_LIT;
@@ -229,6 +232,7 @@ int lex() {
     if(invalidToken){
         printf("Next token is: %d, Next lexeme is %s\n",
     INVALID, lexeme);
+        printf("mierror\n");
                 error();
 
         invalidToken = 0;
