@@ -24,6 +24,7 @@ char lexeme [100];
 char nextChar;
 int lexLen;
 int token;
+int invalidToken = 0;
 FILE *in_fp, *fopen();
 
 void expr();
@@ -203,6 +204,11 @@ int lex() {
                 if (charClass == FLOAT_SEPARATOR){
                     nextToken = FLOAT_LIT;
                 }
+                while(charClass == LETTER){
+                    invalidToken = 1;
+                    addChar();
+                    getChar();
+                }
             }
             break;
         /* Parentheses and operators */
@@ -219,7 +225,16 @@ int lex() {
             lexeme[3] = 0;
             break;
     } 
-    printf("Next token is: %d, Next lexeme is %s\n",
+
+    if(invalidToken){
+        printf("Next token is: %d, Next lexeme is %s\n",
+    INVALID, lexeme);
+                error();
+
+        invalidToken = 0;
+    }else{
+        printf("Next token is: %d, Next lexeme is %s\n",
     nextToken, lexeme);
+    }
     return nextToken;
 } 
