@@ -32,6 +32,25 @@ void factor();
 void error();
 int lex();
 
+/* getChar - a function to get the next character of
+ input and determine its character class */
+void getChar() {
+    int prevCharClass;
+    if ((nextChar = getc(in_fp)) != EOF) {
+        if (isalpha(nextChar))
+            charClass = LETTER;
+        else if (isdigit(nextChar))
+            charClass = DIGIT;
+        else if(nextChar == '.')
+            charClass = FLOAT_SEPARATOR;
+        else 
+            charClass = UNKNOWN;
+    }
+    else
+        charClass = EOF;
+}
+
+
 main() {
 /* Open the input data file and process its contents */
     if ((in_fp = fopen("front.in", "r")) == NULL)
@@ -39,6 +58,7 @@ main() {
     else {
         getChar();
         do {
+            lex();
             expr();
         } while (nextToken != EOF);
     }
@@ -119,23 +139,6 @@ void addChar() {
         printf("Error - lexeme is too long \n");
 }
 
-/* getChar - a function to get the next character of
- input and determine its character class */
-void getChar() {
-    int prevCharClass;
-    if ((nextChar = getc(in_fp)) != EOF) {
-        if (isalpha(nextChar))
-            charClass = LETTER;
-        else if (isdigit(nextChar))
-            charClass = DIGIT;
-        else if(nextChar == '.')
-            charClass = FLOAT_SEPARATOR;
-        else 
-            charClass = UNKNOWN;
-    }
-    else
-        charClass = EOF;
-}
 
 void getNonBlank() {
     while (isspace(nextChar))
@@ -193,36 +196,27 @@ int lex() {
         case DIGIT:
             addChar();
             getChar();
-            nextToken = INT_LIT;
-            while (charClass == DIGIT || charClass ==  FLOAT_SEPARATOR) {
+            while (charClass == DIGIT) {
                 addChar();
                 getChar();
-                if (charClass == FLOAT_SEPARATOR){
-                    nextToken = FLOAT_LIT;
-                }
             }
+            nextToken = INT_LIT;
             break;
-        /* Parentheses and operators */
-        case UNKNOWN:
-            lookup(nextChar);
-            getChar();
-            break;
-        /* EOF */
-        case EOF:
-            nextToken = EOF;
-            lexeme[0] = 'E';
-            lexeme[1] = 'O';
-            lexeme[2] = 'F';
-            lexeme[3] = 0;
-            break;
-    } /* End of switch */
+            /* Parentheses and operators */
+            case UNKNOWN:
+                lookup(nextChar);
+                getChar();
+                break;
+            /* EOF */
+            case EOF:
+                nextToken = EOF;
+                lexeme[0] = 'E';
+                lexeme[1] = 'O';
+                lexeme[2] = 'F';
+                lexeme[3] = 0;
+                break;
+    } 
     printf("Next token is: %d, Next lexeme is %s\n",
-        nextToken, lexeme);
+    nextToken, lexeme);
     return nextToken;
 } 
-
-int main(int argc, char const *argv[])
-{
-    expr();
-    return 0;
-}
