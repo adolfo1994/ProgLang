@@ -17,7 +17,8 @@ z = [
     [0, 0, 0]
 ]
 
-def multiply():    
+
+def multiply():
     for i in xrange(3):
         for j in xrange(3):
             for k in xrange(3):
@@ -32,6 +33,39 @@ def main():
     print "Dissasembler"
     print dis.dis(multiply)
 
+
+"""
+    En el disassembler obtenido del codigo anterior
+    ...
+     25          57 LOAD_GLOBAL              1 (z)
+             60 LOAD_FAST                0 (i)
+             63 BINARY_SUBSCR       
+             64 LOAD_FAST                1 (j)
+             67 DUP_TOPX                 2
+             70 BINARY_SUBSCR       
+             71 LOAD_GLOBAL              2 (x)
+             74 LOAD_FAST                0 (i)
+             77 BINARY_SUBSCR       
+             78 LOAD_FAST                2 (k)
+             81 BINARY_SUBSCR       
+             82 LOAD_GLOBAL              3 (y)
+             85 LOAD_FAST                2 (k)
+             88 BINARY_SUBSCR       
+             89 LOAD_FAST                1 (j)
+             92 BINARY_SUBSCR       
+             93 BINARY_MULTIPLY     
+             94 INPLACE_ADD         
+             95 ROT_THREE           
+             96 STORE_SUBSCR        
+             97 JUMP_ABSOLUTE
+    ...
+    Se ve que se llama continuamente a BINARY_SUBSCR, instrucción 
+    que verifica el rango del indice. La implementación en la version
+    en C de python, utiliza sobre 40 lineas de codigo en comparación a 
+    las 4 necesarias en python para implementar la multiplicacion.
+
+
+"""
 
 if __name__ == '__main__':
     main()
