@@ -59,10 +59,10 @@ def main():
              96 STORE_SUBSCR        
              97 JUMP_ABSOLUTE
     ...
-    Se ve que se llama continuamente a BINARY_SUBSCR, instrucción 
-    que verifica el rango del indice. La implementación en la version
-    en C de python, utiliza sobre 40 lineas de codigo en comparación a 
-    las 4 necesarias en python para implementar la multiplicacion.
+    Se ve que se llama continuamente a BINARY_SUBSCR, instruccion 
+    que verifica el rango del indice. En total se utilizan 48 instrucciones
+    en bytecode de python, en las cuales se llama 6 veces a la verificacion
+    de rangos 
 
 
 """
