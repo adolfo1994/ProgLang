@@ -16,5 +16,15 @@ class Program
         Console.WriteLine(sum1);
         sum2 = fun(ref j) + (j / 2);
         Console.WriteLine(sum2);
+        /*
+            Resultado
+            46
+            48
+            En C#, a diferencia de Java, si se puede hacer paso de valores por referencia
+            utilizando la palabra reservada ref en el paramtro y al pasar
+            el valor. 
+            El resultado es similar al obteindo en C y C++, por lo que se ve que tambien
+            se evalua en orden las expresiones.
+        */
     }
 }
