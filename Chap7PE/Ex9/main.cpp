@@ -76,3 +76,26 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
+
+/*
+    Resultados:
+
+    Int operations took: 2595.57ms
+    Float operations took: 2630.8ms           1 int 0 float 
+
+    Int operations took: 2564.42ms
+    Float operations took: 2521.63ms           1 int 1 float
+
+    Int operations took: 2524.66ms 
+    Float operations took: 2529.48ms             2 int 1 float
+
+    Int operations took: 2576.13ms
+    Float operations took: 2577.41ms              3 int 1 float
+
+    Int operations took: 3078.93ms
+    Float operations took: 3056.69ms             3 int 2 float
+    
+    En base a varias pruebas se nota que a pesar que en la mayoria de pruebas las operaciones
+    con enteros demoran menos, esta diferencia es casi negable y en algunos casos las de float
+    fueron mas rapidas. 
+*/
